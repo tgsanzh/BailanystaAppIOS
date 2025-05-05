@@ -23,6 +23,9 @@ final class HomeViewModel: ObservableObject {
     
     func getPosts() {
         if let accessToken = KeychainService.shared.load(key: "access_token"), !accessToken.isEmpty {
+            
+            guard !isLoading else { return }
+            
             Task {
                 isLoading = true
                 errorMessage = nil

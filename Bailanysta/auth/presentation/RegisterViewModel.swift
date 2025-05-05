@@ -46,8 +46,9 @@ final class RegisterViewModel: ObservableObject {
                         self.errorText = error.localizedDescription
                         print("Error: \(error.localizedDescription)")
             }
+            self.isLoading = false
         }
-        isLoading = false
+        
 
     }
 }

@@ -20,6 +20,8 @@ final class SearchViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     
+    @Published var lastChecked: String = ""
+    
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
@@ -27,8 +29,11 @@ final class SearchViewModel: ObservableObject {
     
     func getPosts() {
         
+        if lastChecked == searchText { return }
         if let accessToken = KeychainService.shared.load(key: "access_token"), !accessToken.isEmpty {
             Task {
+                guard !isLoading else { return }
+                lastChecked = searchText
                 isLoading = true
                 errorMessage = nil
                 let posts = await repository.getPosts(token: accessToken, search: searchText)
@@ -82,6 +87,7 @@ final class SearchViewModel: ObservableObject {
     func unlike(postId: Int) {
         if let accessToken = KeychainService.shared.load(key: "access_token"), !accessToken.isEmpty {
             Task {
+                
                 let result = await homeRepository.unlike(token: accessToken, postId: postId)
                 if result == 200 {
                     posts = posts.map { post in
