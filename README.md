@@ -1,5 +1,7 @@
 # BailanystaIOS
 README.md только для IOS приложения.
+Backend: ( https://github.com/tgsanzh/BailanystaBackend )
+
 
 Bailanysta - Социальная сеть по типу Threads где можно поделиться своими мыслями или создать обсуждение.
 
